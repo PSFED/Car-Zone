@@ -1,23 +1,23 @@
-$(function () {
+$(function() {
 
     'use strict';
 
     // Showing page loader
-    $(window).on('load', function () {
+    $(window).on('load', function() {
         populateColorPlates();
-        setTimeout(function () {
+        setTimeout(function() {
             $(".page_loader").fadeOut("fast");
         }, 100);
 
-        if ($('body .filter-portfolio').length > 0) {
-            $(function () {
+        if($('body .filter-portfolio').length > 0) {
+            $(function() {
                 $('.filter-portfolio').filterizr(
                     {
                         delay: 0
                     }
                 );
             });
-            $('.filteriz-navigation li').on('click', function () {
+            $('.filteriz-navigation li').on('click', function() {
                 $('.filteriz-navigation .filtr').removeClass('active');
                 $(this).addClass('active');
             });
@@ -39,8 +39,8 @@ $(function () {
 
     $(".car-magnify-gallery").lightGallery();
 
-    $(document).on('click', '.compare-btn', function () {
-        if ($(this).hasClass('active')) {
+    $(document).on('click', '.compare-btn', function() {
+        if($(this).hasClass('active')) {
             $(this).removeClass('active');
             $.jnoty("Car has been removed from compare list", {
                 header: 'Warning',
@@ -60,8 +60,8 @@ $(function () {
         }
     });
 
-    $(document).on('click', '.wishlist-btn', function () {
-        if ($(this).hasClass('active')) {
+    $(document).on('click', '.wishlist-btn', function() {
+        if($(this).hasClass('active')) {
             $(this).removeClass('active');
             $.jnoty("Car has been removed from wishlist list", {
                 header: 'Warning',
@@ -86,14 +86,14 @@ $(function () {
     adjustHeader();
     doSticky();
     placedDashboard();
-    $(window).on('scroll', function () {
+    $(window).on('scroll', function() {
         adjustHeader();
         doSticky();
         placedDashboard();
     });
 
     // Header shrink while page resize
-    $(window).on('resize', function () {
+    $(window).on('resize', function() {
         adjustHeader();
         doSticky();
         placedDashboard();
@@ -101,18 +101,18 @@ $(function () {
 
     function adjustHeader() {
         var windowWidth = $(window).width();
-        if (windowWidth > 0) {
-            if ($(document).scrollTop() >= 100) {
-                if ($('.header-shrink').length < 1) {
+        if(windowWidth > 0) {
+            if($(document).scrollTop() >= 100) {
+                if($('.header-shrink').length < 1) {
                     $('.sticky-header').addClass('header-shrink');
                 }
-                if ($('.do-sticky').length < 1) {
+                if($('.do-sticky').length < 1) {
                     $('.company-logo img').attr('src', '../static/img/logos/black-logo.png');
                 }
             }
             else {
                 $('.sticky-header').removeClass('header-shrink');
-                if ($('.do-sticky').length < 1 && $('.fixed-header').length == 0 && $('.fixed-header2').length == 0) {
+                if($('.do-sticky').length < 1 && $('.fixed-header').length == 0 && $('.fixed-header2').length == 0) {
                     $('.company-logo img').attr('src', '../static/img/logos/logo.png');
                 } else {
                     $('.company-logo img').attr('src', '../static/img/logos/black-logo.png');
@@ -124,7 +124,7 @@ $(function () {
     }
 
     function doSticky() {
-        if ($(document).scrollTop() > 40) {
+        if($(document).scrollTop() > 40) {
             $('.do-sticky').addClass('sticky-header');
             //$('.do-sticky').addClass('header-shrink');
         }
@@ -141,15 +141,15 @@ $(function () {
 
 
     // Banner slider
-    (function ($) {
+    (function($) {
         //Function to animate slider captions
         function doAnimations(elems) {
             //Cache the animationend event in a variable
             var animEndEv = 'webkitAnimationEnd animationend';
-            elems.each(function () {
+            elems.each(function() {
                 var $this = $(this),
                     $animationType = $this.data('animation');
-                $this.addClass($animationType).one(animEndEv, function () {
+                $this.addClass($animationType).one(animEndEv, function() {
                     $this.removeClass($animationType);
                 });
             });
@@ -166,7 +166,7 @@ $(function () {
         //Pause carousel
         $myCarousel.carousel('pause');
         //Other slides to be animated on carousel slide event
-        $myCarousel.on('slide.bs.carousel', function (e) {
+        $myCarousel.on('slide.bs.carousel', function(e) {
             var $animatingElems = $(e.relatedTarget).find("[data-animation ^= 'animated']");
             doAnimations($animatingElems);
         });
@@ -203,17 +203,17 @@ $(function () {
         return ((BotElement <= BotView) && (TopElement >= TopView));
     }
 
-    $(window).on('scroll', function () {
-        $(".counter").each(function () {
+    $(window).on('scroll', function() {
+        $(".counter").each(function() {
             var isOnView = isCounterElementVisible($(this));
-            if (isOnView && !$(this).hasClass('Starting')) {
+            if(isOnView && !$(this).hasClass('Starting')) {
                 $(this).addClass('Starting');
                 $(this).prop('Counter', 0).animate({
                     Counter: $(this).text()
                 }, {
                     duration: 3000,
                     easing: 'swing',
-                    step: function (now) {
+                    step: function(now) {
                         $(this).text(Math.ceil(now));
                     }
                 });
@@ -223,32 +223,32 @@ $(function () {
 
 
     // Countdown activation
-    $(function () {
+    $(function() {
         // Add background image
         //$.backstretch('../img/nature.jpg');
         var endDate = "December  27, 2019 15:03:25";
         $('.countdown.simple').countdown({ date: endDate });
         $('.countdown.styled').countdown({
             date: endDate,
-            render: function (data) {
+            render: function(data) {
                 $(this.el).html("<div>" + this.leadingZeros(data.days, 3) + " <span>Days</span></div><div>" + this.leadingZeros(data.hours, 2) + " <span>Hours</span></div><div>" + this.leadingZeros(data.min, 2) + " <span>Minutes</span></div><div>" + this.leadingZeros(data.sec, 2) + " <span>Seconds</span></div>");
             }
         });
         $('.countdown.callback').countdown({
             date: +(new Date) + 10000,
-            render: function (data) {
+            render: function(data) {
                 $(this.el).text(this.leadingZeros(data.sec, 2) + " sec");
             },
-            onEnd: function () {
+            onEnd: function() {
                 $(this.el).addClass('ended');
             }
-        }).on("click", function () {
+        }).on("click", function() {
             $(this).removeClass('ended').data('countdown').update(+(new Date) + 10000).start();
         });
 
     });
 
-    $(".range-slider-ui").each(function () {
+    $(".range-slider-ui").each(function() {
         var minRangeValue = $(this).attr('data-min');
         var maxRangeValue = $(this).attr('data-max');
         var minName = $(this).attr('data-min-name');
@@ -266,7 +266,7 @@ $(function () {
             min: minRangeValue,
             max: maxRangeValue,
             values: [minRangeValue, maxRangeValue],
-            slide: function (event, ui) {
+            slide: function(event, ui) {
                 event = event;
                 var currentMin = parseInt(ui.values[0], 10);
                 var currentMax = parseInt(ui.values[1], 10);
@@ -289,22 +289,22 @@ $(function () {
     $('.selectpicker').selectpicker();
 
     // Search option's icon toggle
-    $('.search-options-btn').on('click', function () {
+    $('.search-options-btn').on('click', function() {
         $('.search-section').toggleClass('show-search-area');
         $('.search-options-btn .fa').toggleClass('fa-chevron-down');
     });
 
     // Carousel with partner initialization
-    (function () {
+    (function() {
         $('#ourPartners').carousel({ interval: 3600 });
     }());
 
-    (function () {
-        $('.our-partners .item').each(function () {
+    (function() {
+        $('.our-partners .item').each(function() {
             var itemToClone = $(this);
-            for (var i = 1; i < 4; i++) {
+            for(var i = 1; i < 4; i++) {
                 itemToClone = itemToClone.next();
-                if (!itemToClone.length) {
+                if(!itemToClone.length) {
                     itemToClone = $(this).siblings(':first');
                 }
                 itemToClone.children(':first-child').clone()
@@ -315,7 +315,7 @@ $(function () {
     }());
 
     // Background video playing script
-    $(document).ready(function () {
+    $(document).ready(function() {
         $(".player").mb_YTPlayer(
             {
                 mobileFallbackImage: 'img/banner/banner-1.jpg'
@@ -327,8 +327,8 @@ $(function () {
     $('[data-submenu]').submenupicker();
 
     // Expending/Collapsing advance search content
-    $('.show-more-options').on('click', function () {
-        if ($(this).find('.fa').hasClass('fa-minus-circle')) {
+    $('.show-more-options').on('click', function() {
+        if($(this).find('.fa').hasClass('fa-minus-circle')) {
             $(this).find('.fa').removeClass('fa-minus-circle');
             $(this).find('.fa').addClass('fa-plus-circle');
         } else {
@@ -343,20 +343,20 @@ $(function () {
 
 
     // Megamenu activation
-    $(".megamenu").on("click", function (e) {
+    $(".megamenu").on("click", function(e) {
         e.stopPropagation();
     });
 
     // Dropdown activation
-    $('.dropdown-menu a.dropdown-toggle').on('click', function (e) {
-        if (!$(this).next().hasClass('show')) {
+    $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+        if(!$(this).next().hasClass('show')) {
             $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
         }
         var $subMenu = $(this).next(".dropdown-menu");
         $subMenu.toggleClass('show');
 
 
-        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function (e) {
+        $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
             $('.dropdown-submenu .show').removeClass("show");
         });
 
@@ -365,15 +365,15 @@ $(function () {
 
 
     // Full  Page Search Activation
-    $(function () {
-        $('a[href="#full-page-search"]').on('click', function (event) {
+    $(function() {
+        $('a[href="#full-page-search"]').on('click', function(event) {
             event.preventDefault();
             $('#full-page-search').addClass('open');
             $('#full-page-search > form > input[type="search"]').focus();
         });
 
-        $('#full-page-search, #full-page-search button.close').on('click keyup', function (event) {
-            if (event.target == this || event.target.className == 'close' || event.keyCode == 27) {
+        $('#full-page-search, #full-page-search button.close').on('click keyup', function(event) {
+            if(event.target == this || event.target.className == 'close' || event.keyCode == 27) {
                 $(this).removeClass('open');
             }
         });
@@ -381,7 +381,7 @@ $(function () {
 
 
     // Slick Sliders
-    $('.slick-carousel').each(function () {
+    $('.slick-carousel').each(function() {
         var slider = $(this);
         $(this).slick({
             infinite: true,
@@ -391,16 +391,16 @@ $(function () {
             centerPadding: '0'
         });
 
-        $(this).closest('.slick-slider-area').find('.slick-prev').on("click", function () {
+        $(this).closest('.slick-slider-area').find('.slick-prev').on("click", function() {
             slider.slick('slickPrev');
         });
-        $(this).closest('.slick-slider-area').find('.slick-next').on("click", function () {
+        $(this).closest('.slick-slider-area').find('.slick-next').on("click", function() {
             slider.slick('slickNext');
         });
     });
 
 
-    $(".dropdown.btns .dropdown-toggle").on('click', function () {
+    $(".dropdown.btns .dropdown-toggle").on('click', function() {
         $(this).dropdown("toggle");
         return false;
     });
@@ -409,14 +409,14 @@ $(function () {
 
     // Dropzone initialization
     Dropzone.autoDiscover = false;
-    $(function () {
+    $(function() {
         $("div#myDropZone").dropzone({
             url: "/file-upload"
         });
     });
 
     // Filterizr initialization
-    $(function () {
+    $(function() {
         //$('.filtr-container').filterizr();
     });
 
@@ -452,21 +452,21 @@ $(function () {
             '</div>';
         $('body').append(plateStings);
     }
-    $(document).on('click', '.color-plate', function () {
+    $(document).on('click', '.color-plate', function() {
         var name = $(this).attr('data-color');
         $('link[id="style_sheet"]').attr('href', 'css/skins/' + name + '.css');
     });
 
-    $(document).on('click', '.setting-button', function () {
+    $(document).on('click', '.setting-button', function() {
         $('.option-panel').toggleClass('option-panel-collased');
     });
 });
 
 // mCustomScrollbar initialization
-(function ($) {
-    $(window).resize(function () {
+(function($) {
+    $(window).resize(function() {
         $('#map').css('height', $(this).height() - 110);
-        if ($(this).width() > 768) {
+        if($(this).width() > 768) {
             $(".map-content-sidebar").mCustomScrollbar(
                 { theme: "minimal-dark" }
             );
@@ -477,3 +477,7 @@ $(function () {
         }
     }).trigger("resize");
 })(jQuery);
+
+setTimeout(function() {
+    $('#message').fadeOut('slow');
+}, 4000)
