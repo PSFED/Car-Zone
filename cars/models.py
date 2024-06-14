@@ -3,6 +3,8 @@ from django.db import models
 from ckeditor.fields import RichTextField
 from multiselectfield import MultiSelectField
 
+from contacts.models import Contact
+
 
 class Car(models.Model):
 
